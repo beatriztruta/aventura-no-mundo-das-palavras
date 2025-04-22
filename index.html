@@ -1,87 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Aventura no Mundo das Palavras</title>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #eef4ff;
-        }
-        canvas {
-            display: block;
-            margin: auto;
-        }
-    </style>
-</head>
+<!doctype html>
+<html>
+    <head>
+        <title>Nomes das Letras</title>
+        <link type="text/css" rel="stylesheet" href="style.css">
+    </head>
+
 <body>
-<script>
-class CenaInicial extends Phaser.Scene {
-    constructor() {
-        super('CenaInicial');
-    }
 
-    preload() {
-        this.load.image('letraA', 'assets/letraA.png');
-        this.load.image('leo', 'assets/leo.webp');
-    }
+    <div class="inputcontainer">
+        <h1>Aprenda os Nomes das Letras</h1>
+        <h2>Digite uma letra para ouvir seu nome ou digite seu nome na caixa abaixo!</h2>
+        <input placeholder="digite apenas letras...">
+    </div>
 
-    create() {
-        this.score = 0;
+    <div class="wrapper">
+        <div class="keys" id="keyIDPressed"></div>
+        <div class="keys" id="keyID"></div>
+    </div>
 
-        this.leo = this.physics.add.sprite(400, 300, 'leo').setScale(0.3);
-        this.letra = this.physics.add.sprite(Phaser.Math.Between(100, 700), Phaser.Math.Between(100, 500), 'letraA').setScale(0.2);
-
-        this.scoreText = this.add.text(16, 16, 'Estrelas de Sabedoria: 0', { fontSize: '20px', fill: '#000' });
-
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-        this.physics.add.overlap(this.leo, this.letra, this.coletarLetra, null, this);
-    }
-
-    update() {
-        const speed = 200;
-        this.leo.setVelocity(0);
-
-        if (this.cursors.left.isDown) {
-            this.leo.setVelocityX(-speed);
-        } else if (this.cursors.right.isDown) {
-            this.leo.setVelocityX(speed);
-        }
-
-        if (this.cursors.up.isDown) {
-            this.leo.setVelocityY(-speed);
-        } else if (this.cursors.down.isDown) {
-            this.leo.setVelocityY(speed);
-        }
-    }
-
-    coletarLetra(player, letra) {
-        letra.x = Phaser.Math.Between(100, 700);
-        letra.y = Phaser.Math.Between(100, 500);
-        this.score++;
-        this.scoreText.setText('Estrelas de Sabedoria: ' + this.score);
-    }
-}
-
-const config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 },
-            debug: false
-        }
-    },
-    scene: [CenaInicial]
-};
-
-const game = new Phaser.Game(config);
-</script>
 </body>
+
+<script src="script.js"></script>
+
 </html>
